@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser';
 import keys from './configs/server_config.js';
-import {uploadFileToIPFS} from './configs/pinata_config.js';
+import { fetchFileFromIFPS, uploadFileToIPFS } from './services/pinata_services.js';
 const app = express()
 
 app.use(
@@ -18,13 +18,27 @@ app.use(bodyParser.text());
 
 app.get('/test', async (req, res)=>{
     try{
-        const response = await uploadFileToIPFS('./ss2.png')
-        //const file = new File([videoBuffer], "video.m3u8", { type: "application/vnd.apple.mpegurl" });
-        res.send("hello")
+        const {title , description , tags} = req.body
+        //ffmpeg segments the video
+        const response = await uploadFileToIPFS({filePath:'./ss2.png' , metadata:{title:title , description:description , tags:tags}})
+        if(!response) return res.status(500).json({error:true,message:'File upload failed'})
+        return res.status(200).json({error:false,message:'File upload success'})
     }catch(error){
         console.log('error')
+        res.status(500).json({error:true,message:'File upload failed'})
     }
-    //res.send("Hello world")
+})
+
+app.get('/test-2' , async (req, res)=>{
+    try {
+        const {ipsHash} = req.body
+        const response = await fetchFileFromIFPS(ipsHash)
+        if(!response) return res.status(500).json({error:true,message:'File fetch failed'})
+        return res.status(200).json({error:false,message:'File fetch success',data:response})
+    } catch (error) {
+        console.log('error')
+        res.status(500).json({error:true,message:'File fetch failed'})
+    }
 })
 
 
