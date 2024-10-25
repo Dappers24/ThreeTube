@@ -16,12 +16,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 
-app.get('/test', async (req, res)=>{
+app.post('/upload', async (req, res)=>{
     try{
         const {title , description , tags} = req.body
         //ffmpeg segments the video
         const response = await uploadFileToIPFS({filePath:'./ss2.png' , metadata:{title:title , description:description , tags:tags}})
         if(!response) return res.status(500).json({error:true,message:'File upload failed'})
+        //sending the frontend response to contact with the smart contracts to store the returned ipfsHash in ethereum blockchain via subgraphs
         return res.status(200).json({error:false,message:'File upload success'})
     }catch(error){
         console.log('error')
@@ -29,11 +30,12 @@ app.get('/test', async (req, res)=>{
     }
 })
 
-app.get('/test-2' , async (req, res)=>{
+app.get('/view' , async (req, res)=>{
     try {
         const {ipsHash} = req.body
         const response = await fetchFileFromIFPS(ipsHash)
         if(!response) return res.status(500).json({error:true,message:'File fetch failed'})
+        //returning the 
         return res.status(200).json({error:false,message:'File fetch success',data:response})
     } catch (error) {
         console.log('error')
