@@ -1,0 +1,27 @@
+type VideoAdded @entity(immutable: true) {
+  id: Bytes!
+  videoId: BigInt! # uint256
+  cid: String! # string
+  metadata: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VideoLiked @entity(immutable: true) {
+  id: Bytes!
+  videoId: BigInt! # uint256
+  likes: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VideoViewed @entity(immutable: true) {
+  id: Bytes!
+  videoId: BigInt! # uint256
+  views: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
