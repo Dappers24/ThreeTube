@@ -1,6 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+}
+body{
+  background-image: url('./assets/bg.jpg');
+  background-size:cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.page-wrapper{
+  padding: 20px 36px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.glassmorphism{
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+.connect-btn{
+  background: transparent;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  border-radius: 20px;
+  border:2px solid white;
+  color: white;
+  transition: 0.5s;
+}
+.connect-btn:hover{
+  background-color: rgb(255, 132, 0);
+}
+.connect-wrapper{
+  border: none;
+  padding: 20px ;
+  border-radius: 20px;
 }
