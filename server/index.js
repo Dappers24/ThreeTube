@@ -27,7 +27,7 @@ app.post('/upload', upload.single('video') , async (req, res)=>{
         // const inputPath = './video.mp4'
         // const outputFolder = './videos'
         // const segmentation = await segmentVideo(inputPath , outputFolder)
-        // if(!segmentation) res.status(500).json({error:true,message:'File upload failed'})
+        // if(!segmentation)return res.status(500).json({error:true,message:'File upload failed'})
 
         const response = await uploadFileToIPFS({filePath:'./ss2.png' , metadata:{title:title , description:description , tags:tags}});
         //send folderPath instead of filePath
