@@ -1,0 +1,32 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: mainnet
+    source:
+      address: "0x9888A59008a21C0FAE1c0fa0a50593DD3008d1A6"
+      abi: Contract
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - VideoAdded
+        - VideoLiked
+        - VideoViewed
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: VideoAdded(indexed uint256,string,string)
+          handler: handleVideoAdded
+        - event: VideoLiked(indexed uint256,uint256)
+          handler: handleVideoLiked
+        - event: VideoViewed(indexed uint256,uint256)
+          handler: handleVideoViewed
+      file: ./src/contract.ts

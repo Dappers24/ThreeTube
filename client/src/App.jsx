@@ -9,8 +9,13 @@ function App() {
   const context = useContext(Context)
   const {setAccData , isConnected , setIsConnected} = context
 
+
+  // useEffect(()=>{
+  //   setIsConnected(true)
+  // },[])
+
   useEffect(()=>{
-    setIsConnected(true)
+    console.log(isConnected)
   },[])
 
   const detectCurrentProvider = () => {
@@ -53,19 +58,6 @@ function App() {
     <Wallet onConnect={onConnect}/>:
     <>
     <Navbar/>
-    {/* {isConnected && 
-      <>
-      <div>
-        Account connected
-      </div>
-      <div>
-        Balance : {balance}
-      </div>
-      <div>
-        Wallet Address : {address.substring(0,4)+"***"+address.substring(address.length-3,address.length)}
-      </div>
-      </>
-    } */}
     </>}
    </div>
   );
