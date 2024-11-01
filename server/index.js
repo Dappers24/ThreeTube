@@ -2,12 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser';
 import keys from './configs/server_config.js';
-<<<<<<< HEAD
 import {uploadFileToIPFS} from './configs/pinata_config.js';
-=======
 import { fetchFileFromIFPS, uploadFileToIPFS } from './services/pinata_services.js';
 import { segmentVideo } from './services/ffmpeg_services.js';
->>>>>>> adc3b0d8cbf42e779b9e0618c14c59180db75e84
 const app = express()
 
 app.use(
@@ -21,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 
-<<<<<<< HEAD
+
 app.get('/test', async (req, res)=>{
     try{
         const response = await uploadFileToIPFS('./ss2.png')
@@ -31,7 +28,7 @@ app.get('/test', async (req, res)=>{
         console.log('error')
     }
     //res.send("Hello world")
-=======
+})
 app.post('/upload', async (req, res)=>{
     try{
         const {title , description , tags} = req.body
@@ -64,7 +61,6 @@ app.get('/view' , async (req, res)=>{
         console.log('error')
         res.status(500).json({error:true,message:'File fetch failed'})
     }
->>>>>>> adc3b0d8cbf42e779b9e0618c14c59180db75e84
 })
 
 
