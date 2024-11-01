@@ -8,7 +8,7 @@ function App() {
 
   const context = useContext(Context)
   const {setAccData , isConnected , setIsConnected} = context
-  
+
   useEffect(()=>{
     setIsConnected(true)
   },[])
@@ -26,6 +26,7 @@ function App() {
   };
   
   const onConnect = async() => {
+    console.log('error')
     try {
       const currentProvider = detectCurrentProvider();
       if(currentProvider) {
@@ -33,7 +34,7 @@ function App() {
         const web3 = new Web3(currentProvider);
         const userAccount  =await web3.eth.getAccounts();
         let ethAddress = userAccount[0];
-        let ethBalance = await web3.eth.getBalance(account);
+        let ethBalance = await web3.eth.getBalance(ethAddress);
         ethBalance = web3.utils.fromWei(ethBalance, 'ether'); 
         const data = {
           balance:ethBalance, address:ethAddress
@@ -46,19 +47,12 @@ function App() {
     }
   }
   
-  const onDisconnect = () => {
-    setIsConnected(false);
-  }
-  
-  
-  
   return (
    <div className='page-wrapper'>
     {!isConnected?
     <Wallet onConnect={onConnect}/>:
     <>
     <Navbar/>
-    </>}
     {/* {isConnected && 
       <>
       <div>
@@ -72,6 +66,7 @@ function App() {
       </div>
       </>
     } */}
+    </>}
    </div>
   );
 }

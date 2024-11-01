@@ -13,4 +13,15 @@
     width: 40vw;
     height: 50vh;
     border-radius: 20px;
+    position: relative;
+}
+.dialog-text{
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0px;
+}
+.dialog-text span{
+    color: rgb(0, 224, 0);
 }
