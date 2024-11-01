@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.59.16",
+    "graphql-request": "^7.1.1",
     "pinata-web3": "^0.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
