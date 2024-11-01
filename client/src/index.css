@@ -1,17 +1,11 @@
-<<<<<<< HEAD
-=======
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
->>>>>>> adc3b0d8cbf42e779b9e0618c14c59180db75e84
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-<<<<<<< HEAD
-
-=======
 }
 body{
   background-image: url('./assets/bg.jpg');
@@ -51,5 +45,4 @@ body{
   border: none;
   padding: 20px ;
   border-radius: 20px;
->>>>>>> adc3b0d8cbf42e779b9e0618c14c59180db75e84
 }

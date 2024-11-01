@@ -2,7 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser';
 import keys from './configs/server_config.js';
-import {uploadFileToIPFS} from './configs/pinata_config.js';
 import { fetchFileFromIFPS, uploadFileToIPFS } from './services/pinata_services.js';
 import { segmentVideo } from './services/ffmpeg_services.js';
 const app = express()
@@ -18,17 +17,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 
-
-app.get('/test', async (req, res)=>{
-    try{
-        const response = await uploadFileToIPFS('./ss2.png')
-        //const file = new File([videoBuffer], "video.m3u8", { type: "application/vnd.apple.mpegurl" });
-        res.send("hello")
-    }catch(error){
-        console.log('error')
-    }
-    //res.send("Hello world")
-})
 app.post('/upload', async (req, res)=>{
     try{
         const {title , description , tags} = req.body
