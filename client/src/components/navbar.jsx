@@ -3,6 +3,7 @@ import '../styles/navbar.css'
 import add from '../assets/add.svg'
 import acc from '../assets/profile.svg'
 import AccInfo from "./accInfo.jsx"
+import AddVideo from "./addVideo.jsx"
 // import AddVideo from './addVideo.jsx'
 
 const Navbar = ()=>{
@@ -12,6 +13,7 @@ const Navbar = ()=>{
     return(
         <>
         {profile && <AccInfo close={openProfile}/>}
+        {addVideo && <AddVideo close={openAddVideo}/>}
         {/* <AddVideo close={openAddVideo}/> */}
         <div className="glassmorphism navbar" style={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
             <div className="navbar-header">THREE-TUBE</div>

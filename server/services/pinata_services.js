@@ -34,9 +34,9 @@ async function uploadFileToIPFS({filePath,metadata}) {
       }
 }
 
-async function fetchFileFromIFPS(ipsHash) {
+async function fetchFileFromIFPS(ipfsHash) {
     try {
-        const response = await pinata.gateways.get(ipsHash)
+        const response = await pinata.gateways.get(ipfsHash)
         const file = response.data
         // const folder = response.data
         console.log(file)
