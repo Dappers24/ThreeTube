@@ -58,6 +58,9 @@ function App() {
     <Wallet onConnect={onConnect}/>:
     <>
     <Navbar/>
+    <div className='section-wrapper'>
+      
+    </div>
     </>}
    </div>
   );

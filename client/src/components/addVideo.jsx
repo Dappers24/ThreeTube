@@ -22,16 +22,17 @@ const AddVideo = ({close})=>{
             alert('Video not Posted due to some Error');
             return;
         }
+        //reposne consists of ipfsHash and the metadata of the video. Now this data is added to the blockchain
         alert('Video Successfully Posted');
         close(false);
     }
 
     function handleVideoChange(e){
-        const file = e.target.file[0];
-        if(file || file.type!=="video/mp4"){
+        const file = e.target.files[0];
+        if(!file || file.type!=="video/mp4"){
             alert('You can only upload MP4 format files');
             e.target.value = null;
-            return
+            return;
         }
         setVideo(file)
     }
