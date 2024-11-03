@@ -22,7 +22,7 @@ const AddVideo = ({close})=>{
             alert('Video not Posted due to some Error');
             return;
         }
-        //reposne consists of ipfsHash and the metadata of the video. Now this data is added to the blockchain
+        //reposne consists of ipfsHash and the metadata of the video. Now this data is added to the blockchain by GraphQL
         alert('Video Successfully Posted');
         close(false);
     }

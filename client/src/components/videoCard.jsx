@@ -1,39 +1,64 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { Context } from "../context/context"
-import Hls from 'hls.js'
+// import Hls from 'hls.js'
+import '../styles/videoPlayer.css'
+import VideoPlayer from "./videoPlayer"
+import like from '../assets/like.svg'
 
 const VideoCard = ()=>{
     const context = useContext(Context);
     const {videoData} = context;
-    const [url , setUrl] = useState(null);
-    const videoRef = useRef(null);
+    const playerRef = useRef(null);
 
-    useEffect(()=>{
-        const fetchFromPinata = () => {
-            const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${videoData.ipfsHash}/playlist.m3u8`; 
-            setUrl(ipfsUrl);
-            if(url && Hls.isSupported() && videoRef.current){
-                const hls = new Hls();
-                hls.loadSource(url);
-                hls.attachMedia(videoRef);
-                hls.on(Hls.Events.MANIFEST_PARSED , ()=>{
-                    videoRef.current?.play();
-            })
-            return()=>{
-                hls.destroy();
-            }
-        }}
-        if(videoData && videoData.ipfsHash) fetchFromPinata();
-    },[videoData,url])
+    const videoPlayerOptions = {
+        controls: true,
+        responsive: true,
+        fluid: true,
+        sources: [
+          {
+            src: `https://gateway.pinata.cloud/ipfs/${videoData.IpfsHash}/playlist.m3u8`,
+            type: "application/x-mpegURL"
+          }
+        ]
+      }
+      const handlePlayerReady = (player) => {
+        playerRef.current = player;
+    
+        player.on("waiting", () => {
+          videojs.log("player is waiting");
+        });
+    
+        player.on("dispose", () => {
+          videojs.log("player will dispose");
+        });
+      };
 
     return(
+        <div>
+        {videoData? 
         <>
-        {url? 
-        <video ref={videoRef} controls width="100%" />:
-        (videoData?<div>Loading Video...</div>:
-            <div>Select a Video to Play it!</div>
-        )}
-        </>
+        <VideoPlayer options={videoPlayerOptions} onReady={handlePlayerReady}/>
+        <div className="video-details">
+            <div className="video-metadata">
+            <div className="video-title">{videoData.title}</div><div className="video-tags">
+                {
+                   ( videoData.tags.split(',')).map((tag)=>{
+                    return(
+                        <span className="tags">{tag}</span>
+                    )
+                   })
+                }
+            </div>
+            <div className="video-desc">{videoData.description}</div>
+            </div>
+
+            <div>
+                <img src={like} alt="Like"/>
+            </div>
+        </div>
+        </>:<div>Select a Video to Play it!</div>
+        }
+        </div>
     )
 }
 

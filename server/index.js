@@ -30,6 +30,7 @@ app.post('/upload', upload.single('video') , async (req, res)=>{
             fs.mkdirSync(outputFolder , {recursive:true});
         }
         const segmentation = await segmentVideo(inputPath , outputFolder);
+        fs.unlinkSync(inputPath);
         if(!segmentation)return res.status(500).json({error:true,message:'File upload failed'});
 
         //uploading to IPFS by pinataSDK 
@@ -38,7 +39,7 @@ app.post('/upload', upload.single('video') , async (req, res)=>{
         
         //sending the frontend response to contact with the smart contracts to store the returned ipfsHash in ethereum blockchain via subgraphs
         return res.status(200).json({error:false,message:'File upload success',data:{
-            ipfsHash:response.ipfsHash,
+            ipfsHash:response,
             title:title,
             description:description,
             tags:tags

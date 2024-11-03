@@ -3,20 +3,13 @@ import Web3 from 'web3';
 import Wallet from './components/wallet';
 import { Context } from './context/context';
 import Navbar from './components/navbar';
+import VideoCard from './components/videoCard';
+import Feed from './components/feed';
 
 function App() {
 
   const context = useContext(Context)
   const {setAccData , isConnected , setIsConnected} = context
-
-
-  // useEffect(()=>{
-  //   setIsConnected(true)
-  // },[])
-
-  useEffect(()=>{
-    console.log(isConnected)
-  },[])
 
   const detectCurrentProvider = () => {
     let provider;
@@ -31,7 +24,6 @@ function App() {
   };
   
   const onConnect = async() => {
-    console.log('error')
     try {
       const currentProvider = detectCurrentProvider();
       if(currentProvider) {
@@ -59,7 +51,8 @@ function App() {
     <>
     <Navbar/>
     <div className='section-wrapper'>
-      
+      <VideoCard/>
+      <Feed/>
     </div>
     </>}
    </div>

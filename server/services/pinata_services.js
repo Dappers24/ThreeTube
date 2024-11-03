@@ -21,7 +21,7 @@ async function uploadFileToIPFS({folderPath,metadata}) {
         const pinataOptions ={
           cidVersion:1
         }
-        const upload = await pinata.upload.folder(fileArray,pinataMetadata,pinataOptions);
+        const upload = await pinata.upload.fileArray(fileArray,pinataMetadata,pinataOptions);
         console.log(upload);
         return upload.IpfsHash;
       } catch (error) {

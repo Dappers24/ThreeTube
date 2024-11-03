@@ -1,0 +1,33 @@
+.section-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 10vh;
+}
+.right-section{
+    width: 65vw;
+    background-color: black;
+    color: white;
+}
+.video-details{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.video-title{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.tags{
+    font-size: 0.9rem;
+    color: #000000;
+    background-color: rgb(255, 255, 255);
+    padding: 1px 4px;
+    border-radius: 10px;
+}
+.left-section{
+    height: 80vh;
+    width: 45vh;
+    border-radius: 20px;
+}
