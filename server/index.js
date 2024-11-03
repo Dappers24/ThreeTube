@@ -1,12 +1,26 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
+import http from 'http';
 import bodyParser from 'body-parser';
 import keys from './configs/server_config.js';
 import { uploadFileToIPFS } from './services/pinata_services.js';
 import { segmentVideo } from './services/ffmpeg_services.js';
 import upload from './middlewares/upload.js';
 import fs from 'fs';
+import connectToDb from './configs/db_config.js';
+import {Server as SocketIo} from 'socket.io'
+import { Like } from './models/likesSchema.js';
+import { Video } from './models/videoSchema.js';
+import { View } from './models/viewsSchema.js';
+
 const app = express()
+const server = http.createServer(app);
+export const io = new SocketIo(server , {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 app.use(
     cors({
@@ -50,10 +64,53 @@ app.post('/upload', upload.single('video') , async (req, res)=>{
     }
 })
 
+io.on('connection' , (socket)=>{
+    console.log(`connection with ${socket.id}`)
+
+    socket.on('view' , async (videoCid,userAddress)=>{
+        socket.join(videoCid);
+        let video = await Video.findOne({videoCid:videoCid});
+        if(!video)
+            video = await Video.create({videoCid:videoCid});
+        const viewCheck = await View.findOne({videoCid:videoCid , userAddress:userAddress});
+        if(!viewCheck){
+            await View.create({videoCid:videoCid, userAddress:userAddress});
+            let viewsCount = video.viewsCount+1;
+            video.viewsCount = viewsCount;
+            await video.save({validateBeforeSave:'true'});
+            io.to(videoCid).emit('system-msg',{msg:'New Viewer Joined',likesCount:null,error:false,viewsCount:viewsCount});
+        }else
+        io.to(videoCid).emit('system-msg',{msg:'',likesCount:null,error:false,viewsCount:null});
+    });
+
+    socket.on('like' , async ({videoCid,userAddress})=>{
+        try {
+            const likeCheck = await Like.findOne({videoCid:videoCid , userAddress:userAddress});
+            let video = await Video.findOne({videoCid:videoCid});
+            if(likeCheck){
+                await Like.findByIdAndDelete(likeCheck._id);
+                let likesCount = video.likesCount;
+                if(likesCount>0) likesCount = video.likesCount-1;
+                video.likesCount = likesCount;
+                io.to(videoCid).emit('system-msg' , {msg:"Someone Liked Removed",likesCount:likesCount,error:false,viewsCount:null});
+            }else{
+                await Like.create({videoCid:videoCid, userAddress:userAddress});
+                let likesCount = video.likesCount+1;
+                video.likesCount = likesCount;
+                io.to(videoCid).emit('system-msg' , {msg:'Video Liked',likesCount:likesCount,error:false,viewsCount:null});
+            }
+            await video.save({validateBeforeSave:'true'});
+        } catch (error) {
+            socket.emit('system-msg' , {error:true,msg:'Some error occured',likesCount:null,viewsCount:null});
+        }
+    });
+})
+
 app.get('/ping',(req,res)=>{
     res.send('pong')
 })
 
-app.listen(8000 , ()=>{
-    console.log("Running on port 8000")
+server.listen(8000 , async ()=>{
+    await connectToDb();
+    console.log("Running on port 8000");
 })

@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
-    margin-top: 10vh;
+    margin-top: 12vh;
 }
 .right-section{
     width: 65vw;
@@ -30,4 +30,14 @@
     height: 80vh;
     width: 45vh;
     border-radius: 20px;
+}
+.system-msg{
+    color:white;
+    font-size: 1rem;
+    font-weight: bold;
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    height: 5vh;
+    text-align: center;
 }
