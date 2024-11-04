@@ -8,9 +8,9 @@ import {
 } from "matchstick-as/assembly/index"
 import { BigInt } from "@graphprotocol/graph-ts"
 import { VideoAdded } from "../generated/schema"
-import { VideoAdded as VideoAddedEvent } from "../generated/Contract/Contract"
-import { handleVideoAdded } from "../src/contract"
-import { createVideoAddedEvent } from "./contract-utils"
+import { VideoAdded as VideoAddedEvent } from "../generated/threetube/threetube"
+import { handleVideoAdded } from "../src/threetube"
+import { createVideoAddedEvent } from "./threetube-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0

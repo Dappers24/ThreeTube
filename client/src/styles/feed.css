@@ -1,0 +1,11 @@
+.feed-card{
+    background: #fff;
+    color: #000;
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    
+}
+.feed-title{
+    font-size: 1.5rem;
+}

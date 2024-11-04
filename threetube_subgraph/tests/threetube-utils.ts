@@ -3,8 +3,9 @@ import { ethereum, BigInt } from "@graphprotocol/graph-ts"
 import {
   VideoAdded,
   VideoLiked,
+  VideoUnLiked,
   VideoViewed
-} from "../generated/Contract/Contract"
+} from "../generated/threetube/threetube"
 
 export function createVideoAddedEvent(
   videoId: BigInt,
@@ -50,6 +51,27 @@ export function createVideoLikedEvent(
   )
 
   return videoLikedEvent
+}
+
+export function createVideoUnLikedEvent(
+  videoId: BigInt,
+  likes: BigInt
+): VideoUnLiked {
+  let videoUnLikedEvent = changetype<VideoUnLiked>(newMockEvent())
+
+  videoUnLikedEvent.parameters = new Array()
+
+  videoUnLikedEvent.parameters.push(
+    new ethereum.EventParam(
+      "videoId",
+      ethereum.Value.fromUnsignedBigInt(videoId)
+    )
+  )
+  videoUnLikedEvent.parameters.push(
+    new ethereum.EventParam("likes", ethereum.Value.fromUnsignedBigInt(likes))
+  )
+
+  return videoUnLikedEvent
 }
 
 export function createVideoViewedEvent(

@@ -1,11 +1,13 @@
-async function segmentVideo(inputPath , outputFolder){
-    
-    const outputOptions = ['-c:v libx264','-crf 23','-preset veryfast','-hls_time 20', '-hls_playlist_type vod','-hls_segment_filename']
+import Ffmpeg from 'fluent-ffmpeg';
 
+async function segmentVideo(inputPath , outputFolder){
+
+    const outputOptions = ['-codec:v', 'libx264', '-codec:a', 'aac','-hls_time', '1','-hls_playlist_type', 'vod',
+        '-hls_segment_filename', `${outputFolder}/segment_%03d.ts`, '-start_number', '0']
     try {
         await new Promise((resolve , reject)=>{
-            ffmpeg(inputPath).output(`${outputFolder}/video_%03d.ts`)
-            .outputOptions([...outputOptions, `${outputFolder}/segment_%03d.ts`])
+            Ffmpeg(inputPath).output(`${outputFolder}/playlist.m3u8`)
+            .outputOptions(outputOptions)
             .on('end',()=>{
                 resolve()
             }).on('error',(error)=>{

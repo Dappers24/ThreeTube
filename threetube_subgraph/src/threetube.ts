@@ -1,9 +1,15 @@
 import {
   VideoAdded as VideoAddedEvent,
   VideoLiked as VideoLikedEvent,
+  VideoUnLiked as VideoUnLikedEvent,
   VideoViewed as VideoViewedEvent
-} from "../generated/Contract/Contract"
-import { VideoAdded, VideoLiked, VideoViewed } from "../generated/schema"
+} from "../generated/threetube/threetube"
+import {
+  VideoAdded,
+  VideoLiked,
+  VideoUnLiked,
+  VideoViewed
+} from "../generated/schema"
 
 export function handleVideoAdded(event: VideoAddedEvent): void {
   let entity = new VideoAdded(
@@ -22,6 +28,20 @@ export function handleVideoAdded(event: VideoAddedEvent): void {
 
 export function handleVideoLiked(event: VideoLikedEvent): void {
   let entity = new VideoLiked(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.videoId = event.params.videoId
+  entity.likes = event.params.likes
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleVideoUnLiked(event: VideoUnLikedEvent): void {
+  let entity = new VideoUnLiked(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.videoId = event.params.videoId

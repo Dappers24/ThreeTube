@@ -1,5 +1,8 @@
-[
-	{
+export const backendUrl = 'http://localhost:8000'
+export const subgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube_subgraph/v0.1'
+export const contractAddress = '0xFFd02C8d2b705970DA5736CCAe0461e1F558f808'
+export const ABI = [
+    {
 		"anonymous": false,
 		"inputs": [
 			{
