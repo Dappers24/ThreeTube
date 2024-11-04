@@ -1,0 +1,35 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: threetube
+    network: sepolia
+    source:
+      address: "0xFFd02C8d2b705970DA5736CCAe0461e1F558f808"
+      abi: threetube
+      startBlock: 7009505
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - VideoAdded
+        - VideoLiked
+        - VideoUnLiked
+        - VideoViewed
+      abis:
+        - name: threetube
+          file: ./abis/threetube.json
+      eventHandlers:
+        - event: VideoAdded(indexed uint256,string,string)
+          handler: handleVideoAdded
+        - event: VideoLiked(indexed uint256,uint256)
+          handler: handleVideoLiked
+        - event: VideoUnLiked(indexed uint256,uint256)
+          handler: handleVideoUnLiked
+        - event: VideoViewed(indexed uint256,uint256)
+          handler: handleVideoViewed
+      file: ./src/threetube.ts
