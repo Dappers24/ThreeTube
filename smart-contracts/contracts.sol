@@ -16,7 +16,6 @@ contract VideoStorage {
     uint256 public videoCount=0;
 
     event VideoAdded(uint256 indexed videoId, string cid, string metadata);
-    event VideoDeleted(uint256 indexed , string cid );
     event VideoViewed(uint256 indexed videoId, uint256 views);
     event VideoLiked(uint256 indexed videoId, uint256 likes);
     event VideoUnLiked(uint256 indexed videoId, uint256 likes);

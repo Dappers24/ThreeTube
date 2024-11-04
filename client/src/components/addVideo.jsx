@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Upload } from "../apis/videos";
 import '../styles/profile.css'
 import '../styles/upload.css'
 import cross from '../assets/cross.svg'
+import { Context } from "../context/context";
+import { addVideo } from "../apis/contracts";
 
 const AddVideo = ({close})=>{
 
+    const context = useContext(Context)
+    const {accData} = context;
     const [title , setTitle] = useState('');
     const [description , setDescription] = useState('');
     const [tags , setTags] = useState('');
@@ -22,7 +26,16 @@ const AddVideo = ({close})=>{
             alert('Video not Posted due to some Error');
             return;
         }
-        //reposne consists of ipfsHash and the metadata of the video. Now this data is added to the blockchain by GraphQL
+        //reposne consists of ipfsHash and the metadata of the video. Now this data is added to the blockchain by web3.js
+        // {ipfsHash:response,
+        // title:title,
+        // description:description,
+        // tags:tags}
+        const transaction = await addVideo({response:response.data,accData:accData});
+        if(!transaction) {
+            alert('Video not Posted due to some Error');
+            return;
+        }
         alert('Video Successfully Posted');
         close(false);
     }

@@ -15,10 +15,14 @@ const VideoCard = ()=>{
     const socketContext = useContext(SocketContext);
     const {socketId , setSocketId} = socketContext;
     const playerRef = useRef(null);
-    const [likesCount , setLikesCount] = useState(videoData.likesCount);
-    const [viewsCount , setViewsCount] = useState(videoData.viewsCount);
+    const [likesCount , setLikesCount] = useState(0);
+    const [viewsCount , setViewsCount] = useState(0);
     const [systemMsg , setSystemMsg] = useState('');
     const firstLoad = useRef(true)
+
+    useEffect(()=>{
+      console.log(videoData)
+    },[videoData])
 
     useEffect(()=>{
       console.log(`likes:${likesCount}`)
@@ -29,7 +33,7 @@ const VideoCard = ()=>{
         const newSocket = io(backendUrl);
         setSocketId(newSocket);
         newSocket.on('connect',()=>{
-          newSocket.emit('view', videoData.IpfsHash);
+          newSocket.emit('view', {videoCid:videoData.cid, userAddress:accData.address});
         })
 
         newSocket.on('system-msg', (data) => {
@@ -56,7 +60,7 @@ const VideoCard = ()=>{
     },[videoData])
 
     const handleLike=()=>{
-      socketId.emit('like', {videoCid:videoData.IpfsHash, userAddress:accData.address});
+      socketId.emit('like', {videoCid:videoData.cid, userAddress:accData.address});
     }
 
     const videoPlayerOptions = useMemo(()=>({
@@ -65,11 +69,11 @@ const VideoCard = ()=>{
       fluid: true,
       sources: [
         {
-          src: `https://gateway.pinata.cloud/ipfs/${videoData.IpfsHash}/playlist.m3u8`,
+          src: `https://gateway.pinata.cloud/ipfs/${videoData?.cid}/playlist.m3u8`,
           type: "application/x-mpegURL"
         }
       ]
-    }), [videoData.IpfsHash]);
+    }), [videoData]);
 
       
     const handlePlayerReady = useCallback((player) => {
@@ -92,24 +96,25 @@ const VideoCard = ()=>{
         <VideoPlayer options={videoPlayerOptions} onReady={handlePlayerReady}/>
         <div className="video-details">
             <div className="video-metadata">
-            <div className="video-title">{videoData.title}</div><div className="video-tags">
+            <div className="video-title">{videoData.metadata.title}</div>
+            <div className="video-tags">
                 {
-                   ( videoData.tags.split(',')).map((tag)=>{
+                   ( videoData.metadata.tags.split(',')).map((tag)=>{
                     return(
                         <span className="tags">{tag}</span>
                     )
                    })
                 }
             </div>
-            <div className="video-desc">{videoData.description}</div>
+            <div className="video-desc">{videoData.metadata.description}</div>
             </div>
 
-            <div style={{display:'flex',alignItems:'center'}}>
+            <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
             {likesCount}<img src={like} alt="Likes" style={{width:'30px',}} onClick={handleLike}/>
             {viewsCount}<img src={views} alt="Views" style={{width:'30px'}}/>
             </div>
         </div>
-        </>:<div>Select a Video to Play it!</div>
+        </>:<div style={{width:'65vw',color:'#fff',fontSize:'2rem',fontWeight:'bold',textAlign:'center',marginTop:'30%'}}>Select a Video to Play it!</div>
         }
         </div>
     )

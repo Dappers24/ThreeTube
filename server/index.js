@@ -67,20 +67,24 @@ app.post('/upload', upload.single('video') , async (req, res)=>{
 io.on('connection' , (socket)=>{
     console.log(`connection with ${socket.id}`)
 
-    socket.on('view' , async (videoCid,userAddress)=>{
-        socket.join(videoCid);
-        let video = await Video.findOne({videoCid:videoCid});
-        if(!video)
-            video = await Video.create({videoCid:videoCid});
-        const viewCheck = await View.findOne({videoCid:videoCid , userAddress:userAddress});
-        if(!viewCheck){
-            await View.create({videoCid:videoCid, userAddress:userAddress});
-            let viewsCount = video.viewsCount+1;
-            video.viewsCount = viewsCount;
-            await video.save({validateBeforeSave:'true'});
-            io.to(videoCid).emit('system-msg',{msg:'New Viewer Joined',likesCount:null,error:false,viewsCount:viewsCount});
-        }else
-        io.to(videoCid).emit('system-msg',{msg:'',likesCount:null,error:false,viewsCount:null});
+    socket.on('view' , async ({videoCid,userAddress})=>{
+        try {
+            socket.join(videoCid);
+            let video = await Video.findOne({videoCid:videoCid});
+            if(!video)
+                video = await Video.create({videoCid:videoCid});
+            const viewCheck = await View.findOne({videoCid:videoCid , userAddress:userAddress});
+            if(!viewCheck){
+                await View.create({videoCid:videoCid, userAddress:userAddress});
+                let viewsCount = video.viewsCount+1;
+                video.viewsCount = viewsCount;
+                await video.save({validateBeforeSave:'true'});
+                io.to(videoCid).emit('system-msg',{msg:'New Viewer Joined',likesCount:null,error:false,viewsCount:viewsCount});
+            }else
+            io.to(videoCid).emit('system-msg',{msg:'',likesCount:null,error:false,viewsCount:null});
+        } catch (error) {
+            socket.emit('system-msg' , {error:true,msg:'Some error occured',likesCount:null,viewsCount:null});
+        }
     });
 
     socket.on('like' , async ({videoCid,userAddress})=>{

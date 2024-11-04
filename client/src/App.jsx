@@ -1,4 +1,4 @@
-import { useEffect, useContext} from 'react';
+import { useContext} from 'react';
 import Web3 from 'web3';
 import Wallet from './components/wallet';
 import { Context } from './context/context';

@@ -30,6 +30,10 @@
     height: 80vh;
     width: 45vh;
     border-radius: 20px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 .system-msg{
     color:white;
@@ -40,4 +44,8 @@
     width: 100vw;
     height: 5vh;
     text-align: center;
+}
+.video-tags{
+    display: flex;
+    gap: 5px;
 }
