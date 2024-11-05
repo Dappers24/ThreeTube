@@ -10,6 +10,7 @@
 
 ## Prerequisites
 #### Node.js should be installed on your system
+#### Create two folders in the server : uploads and videos
 ### Go inside the client and server folder and do install a npm dependencies
 ```
 cd client
@@ -37,6 +38,22 @@ npm install
 ```
 
 # 🖼️ Some glimpse of the platform
+## Landing Page
+<img src="photos/landing.png">
+<br /><br />
+
+## After Authenticating with MetaMask
+<img src="photos/feed.png">
+<br /><br />
+
+## Adding a video
+<img src="photos/add.png">
+<br /><br />
+
+## Playing a video
+<img src="photos/playing.png">
+<br /><br />
+
 
 # 🐛 Bug Reporting
 #### Feel free to [open an issue](https://github.com/Dappers24/ThreeTubes) on GitHub if you find any bug.

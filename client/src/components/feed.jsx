@@ -16,7 +16,6 @@ const Feed = ()=>{
     const [page , setPage] = useState(1);
 
     const handleVideoClick = (index)=>{
-      console.log(videoList[index])
         setVideoData(videoList[index]);
     }
 

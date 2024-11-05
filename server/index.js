@@ -79,9 +79,9 @@ io.on('connection' , (socket)=>{
                 let viewsCount = video.viewsCount+1;
                 video.viewsCount = viewsCount;
                 await video.save({validateBeforeSave:'true'});
-                io.to(videoCid).emit('system-msg',{msg:'New Viewer Joined',likesCount:null,error:false,viewsCount:viewsCount});
+                io.to(videoCid).emit('system-msg',{msg:'New Viewer Joined',likesCount:video.likesCount,error:false,viewsCount:viewsCount});
             }else
-            io.to(videoCid).emit('system-msg',{msg:'',likesCount:null,error:false,viewsCount:null});
+            io.to(videoCid).emit('system-msg',{msg:'',likesCount:video.likesCount,error:false,viewsCount:video.viewsCount});
         } catch (error) {
             socket.emit('system-msg' , {error:true,msg:'Some error occured',likesCount:null,viewsCount:null});
         }
@@ -96,12 +96,12 @@ io.on('connection' , (socket)=>{
                 let likesCount = video.likesCount;
                 if(likesCount>0) likesCount = video.likesCount-1;
                 video.likesCount = likesCount;
-                io.to(videoCid).emit('system-msg' , {msg:"Someone Liked Removed",likesCount:likesCount,error:false,viewsCount:null});
+                io.to(videoCid).emit('system-msg' , {msg:"Someone Liked Removed",likesCount:likesCount,error:false,viewsCount:video.viewsCount});
             }else{
                 await Like.create({videoCid:videoCid, userAddress:userAddress});
                 let likesCount = video.likesCount+1;
                 video.likesCount = likesCount;
-                io.to(videoCid).emit('system-msg' , {msg:'Video Liked',likesCount:likesCount,error:false,viewsCount:null});
+                io.to(videoCid).emit('system-msg' , {msg:'Video Liked',likesCount:likesCount,error:false,viewsCount:video.viewsCount});
             }
             await video.save({validateBeforeSave:'true'});
         } catch (error) {

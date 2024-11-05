@@ -14,6 +14,7 @@
     height: 50vh;
     border-radius: 20px;
     position: relative;
+    background-color: #0000003c;
 }
 .dialog-text{
     font-size: 2rem;
