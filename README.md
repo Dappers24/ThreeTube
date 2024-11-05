@@ -5,9 +5,6 @@
 ## Complete Idea with a Revenue Model
 #### Here's a [ppt](https://www.canva.com/design/DAGVFv3zRSA/rHzQhXR-jrgJsYF4BrwNjQ/edit) about the entire project
 
-## 🧩 Main Features
-#### <ul><li>Homepage for completed & ongoing elections</li><li>Token based autentication for securing url routes</li><li>Results & Vote statistics for completed elections</li><li>Admin Dashboard to add new elections</li></ul>
-
 ## 💻 TechStack Used
 #### <ul><li>Solidity</li><li>Solidity</li><li>ReactJS</li><li>TailwindCSS</li><li>NodeJS</li><li>Web3.js</li><li>MongoDB</li><li>MetaMask</li><li>IFPS</li><li>PinataSDK</li><li>FFMPEG</li><li>GraphQL</li><li>Websockets</li><li>Ganache</li></ul>
 
@@ -33,10 +30,10 @@ npm install
 ```
 1. DB = //This should be the connection URL of your MongoDB database 
 2. NODE_ENV = //Set this as 'development' for running the project locally
-3. PINATA_API_KEY = //
-4. PINATA_SECRET_API_KEY = 
-5. GATEWAY_URL= 
-6. PINATA_JWT= 
+3. PINATA_API_KEY = //You get this on setting up an account on pinataSDK
+4. PINATA_SECRET_API_KEY = //You get this on setting up an account on pinataSDK
+5. GATEWAY_URL= //You get this on setting up an account on pinataSDK
+6. PINATA_JWT= //You get this on setting up an account on pinataSDK
 ```
 
 # 🖼️ Some glimpse of the platform
@@ -49,7 +46,7 @@ npm install
 # ⭐ Feature Suggestion
 #### Feel free to [open an issue](https://github.com/Dappers24/ThreeTubes) on GitHub if you have feature idea to be added 🙌.
 
-# Team
+# 🧩 Team
 #### <ul><li>[Muskan](https://github.com/musk1n)</li><li>[Srinjoy](https://github.com/sgcodes7471)</li><li>[Kritika](https://github.com/shreespace)</li><li>[Tannya](https://github.com/tan1729)</li></ul>
 
 ```
