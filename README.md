@@ -51,7 +51,7 @@ npm install
 <br /><br />
 
 ## Playing a video
-<img src="photos/playing.png">
+<img src="photos/playing.jpg">
 <br /><br />
 
 
