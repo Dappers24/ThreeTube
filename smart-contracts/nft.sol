@@ -8,9 +8,12 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract VideoNFT is ERC721, Ownable {
 
     struct Video {
-        string title;
+        address owner;
+        string metadata;
         string cid;
-        uint256 price;  
+        uint256 price;
+        uint256 views;
+        uint256 likes; 
     }
 
     uint256 private _tokenIdCounter = 0;
@@ -23,15 +26,15 @@ contract VideoNFT is ERC721, Ownable {
         
     }
     
-    function mintVideo( string memory title, string memory cid, uint256 price) public onlyOwner {
+    function mintVideo( string memory metadata, string memory cid, uint256 price) public onlyOwner {
         uint256 tokenId = _tokenIdCounter;
         _mint(msg.sender, tokenId);
         videos[tokenId] = Video({
-            title: title,
+            metadata: metadata,
             cid: cid,
             price: price
         });
-        emit VideoMinted(tokenId, title, msg.sender);
+        emit VideoMinted(tokenId, metadata, msg.sender);
         _tokenIdCounter++;
     }
 
@@ -42,6 +45,7 @@ contract VideoNFT is ERC721, Ownable {
         require(owner != msg.sender, "Cannot buy your own NFT");
         _transfer(owner, msg.sender, tokenId);
         payable(owner).transfer(msg.value);
+        ownerOf(tokenId) = msg.sender
         emit VideoSold(tokenId, msg.sender, msg.value);
     }
 

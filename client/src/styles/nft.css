@@ -1,0 +1,31 @@
+
+.toggle-btn-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin:5% 5px;
+  }
+  .toggle-btn{
+    /* background:#fff; */
+    width: 45%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    padding: 10px 0px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+  .nft-list-box{
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    margin: 0px 20px;
+    border: 2px solid #fff;
+    padding: 5px 10px;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+  }
