@@ -4,6 +4,7 @@ export const Context = createContext()
 export const ContextProvider = ({children})=>{
     const [videoData , setVideoData] = useState(null);
     const [isConnected , setIsConnected] = useState(false);
+    const [nftList , setNftList]=useState([]);
     const [accData , setAccData] = useState({address:'#07h834Cuh9u89329' , balance:'100000eth'})
 
     // useEffect(()=>{
@@ -21,7 +22,7 @@ export const ContextProvider = ({children})=>{
     
     return (
         <Context.Provider value={{videoData , setAccData , accData , setIsConnected , 
-        isConnected , setVideoData}}>
+        isConnected , setVideoData , nftList , setNftList}}>
             {children}
         </Context.Provider>
     )

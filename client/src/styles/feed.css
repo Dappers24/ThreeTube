@@ -9,3 +9,9 @@
 .feed-title{
     font-size: 1.5rem;
 }
+.pagination-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px 0px;
+}

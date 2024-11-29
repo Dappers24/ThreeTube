@@ -10,3 +10,16 @@ export const GET_DATA = gql`
     }
     }
 `;
+
+// export const GET_NFT = gql`
+// query GetNfts(){
+//   nftAddeds(orderBy:views, orderDirection:desc) {
+//     id
+//     cid
+//     tokenId
+//     metadata
+//     views
+//     likes
+//   } 
+// }
+// `
