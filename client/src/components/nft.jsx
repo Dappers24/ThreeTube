@@ -11,7 +11,7 @@ const NFTs = ({close})=>{
 
     const context = useContext(Context);
     const {nftList , setNftList} = context;
-    const [toggle , setToggle] = useState(false);
+    const [toggle , setToggle] = useState('all');// 'all' | 'my' | 'list'
 
     //presently commented out code to be used after deploying again on subgraphs
     // const { loading, error, data } = useQuery(GET_NFT);
@@ -65,11 +65,11 @@ const NFTs = ({close})=>{
                 {errorFeed && <div>{error}</div>} */}
                 <div className='toggle-btn-wrapper'>
                 <div className='toggle-btn' onClick={()=>setToggle(false)}
-                style={!toggle?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>All NFT's</div>
+                style={toggle==='all'?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>All NFT's</div>
                 <div className='toggle-btn' onClick={()=>setToggle(true)}
-                style={toggle?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>My NFT's</div>
+                style={toggle==='my'?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>My NFT's</div>
                 </div>
-                { !toggle &&
+                { toggle === 'all' &&
                     nftList.map((nft)=>{
                         return(
                             <>
@@ -83,6 +83,31 @@ const NFTs = ({close})=>{
                                }}/>
                                {nft.price}eth
                                </div>
+                            </div>
+                            </>
+                        )
+                    })
+                }
+                {
+                    toggle === 'my' && 
+                    nftList.map((nft)=>{
+                        return(
+                            <>
+                            <div className='nft-list-box'>
+                               <p style={{fontSize:'1.2rem'}}>{nft.metadata.title}</p> 
+                            </div>
+                            </>
+                        )
+                    })
+                }
+
+                {
+                    toggle === 'list' && 
+                    nftList.map((nft)=>{
+                        return (
+                            <>
+                            <div className='nft-list-box'>
+                               <p style={{fontSize:'1.2rem'}}>{nft.metadata.title}</p> 
                             </div>
                             </>
                         )

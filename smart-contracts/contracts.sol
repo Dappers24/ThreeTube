@@ -15,7 +15,7 @@ contract VideoStorage {
     mapping(uint256 => mapping(address => bool)) public hasLiked;
     uint256 public videoCount=0;
 
-    event VideoAdded(uint256 indexed videoId, string cid, string metadata);
+    event VideoAdded(uint256 indexed videoId, string cid, string metadata , address indexed owner);
     event VideoViewed(uint256 indexed videoId, uint256 views);
     event VideoLiked(uint256 indexed videoId, uint256 likes);
     event VideoUnLiked(uint256 indexed videoId, uint256 likes);
@@ -24,8 +24,8 @@ contract VideoStorage {
     function addVideo(string memory _cid, string memory _metadata) public {
         videoCount++;
         address _owner=msg.sender;
-        videos[videoCount]=Video(_owner ,_cid, _metadata, 0, 0);
-        emit VideoAdded(videoCount, _cid, _metadata);
+        videos[videoCount]=Video(_owner ,_cid, _metadata, 0, 0 );
+        emit VideoAdded(videoCount, _cid, _metadata , _owner);
     }
 
     
@@ -42,7 +42,6 @@ contract VideoStorage {
         hasViewed[_videoId][msg.sender]=true;
         emit VideoViewed(_videoId, videos[_videoId].views);
     }
-
     
     function addLike(uint256 _videoId) public {
         require(!hasLiked[_videoId][msg.sender], "You have already liked this video.");

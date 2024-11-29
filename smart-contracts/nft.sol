@@ -1,56 +1,75 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract VideoNFT is ERC721, Ownable {
+import "@openzeppelin/contracts@5.0.0/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts@5.0.0/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts@5.0.0/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts@5.0.0/access/Ownable.sol";
 
-    struct Video {
+contract MyToken is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
+    constructor(address initialOwner)  ERC721("VideoNFT", "VNFT") Ownable(initialOwner){}
+
+    struct Video{
         address owner;
-        string metadata;
-        string cid;
         uint256 price;
-        uint256 views;
-        uint256 likes; 
+        string tokenURI;
     }
 
-    uint256 private _tokenIdCounter = 0;
-    mapping(uint256 => Video) private videos;
+    uint256 private tokenId = 0;
+    mapping (uint256 => Video) private videos;
+    mapping (string => bool) private mintedVideos;
 
-    event VideoMinted(uint256 indexed tokenId, string title, address indexed owner);
-    event VideoSold(uint256 indexed tokenId, address indexed buyer, uint256 price);
+    event VideoMinted(uint256 indexed tokenId, address indexed owner);
+    event VideoBought(uint256 indexed tokenId , address indexed buyer , address indexed seller);
 
-    constructor() ERC721("VideoNFT", "VNFT") {
-        
-    }
-    
-    function mintVideo( string memory metadata, string memory cid, uint256 price) public onlyOwner {
-        uint256 tokenId = _tokenIdCounter;
-        _mint(msg.sender, tokenId);
+    function videoMint( string memory tokenUri , uint256 price) public {
+        //tokenURI mein url hai uss json file ka jo ipfs par upload kiya, uss json mein metadata aur video cid hai
+        require(mintedVideos[tokenUri] , "Video is already Minted");
+        require(price>0 , "NFT must have some positive ETH pricing");
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, tokenUri);
         videos[tokenId] = Video({
-            metadata: metadata,
-            cid: cid,
-            price: price
+            owner:msg.sender,
+            tokenURI:tokenUri,
+            price:price
         });
-        emit VideoMinted(tokenId, metadata, msg.sender);
-        _tokenIdCounter++;
+        mintedVideos[tokenUri] = true;
+        emit VideoMinted(tokenId , msg.sender);
+        tokenId++;
     }
 
-    function buyVideo(uint256 tokenId) public payable {
-        require(tokenId<=_tokenIdCounter, "Video does not exist");
-        require(msg.value >= videos[tokenId].price, "Insufficient balance");
-        address owner = ownerOf(tokenId);
-        require(owner != msg.sender, "Cannot buy your own NFT");
-        _transfer(owner, msg.sender, tokenId);
-        payable(owner).transfer(msg.value);
-        ownerOf(tokenId) = msg.sender
-        emit VideoSold(tokenId, msg.sender, msg.value);
+    // The following functions are overrides required by Solidity.
+
+    function tokenURI(uint256 _tokenId)public view override(ERC721, ERC721URIStorage) returns (string memory) {
+        return super.tokenURI(_tokenId);
     }
 
-    function getVideo(uint256 tokenId) public view returns (Video memory) {
-        require(_exists(tokenId), "Video does not exist");
-        return videos[tokenId];
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+
+    //get the nft's by tokens
+    //get all the nft's -  to be done by the subgraph
+    //buy a nft - payable , transfer function , public , 
+
+    function videoBuy (uint256 _tokenId ) public payable {
+        require(tokenId>_tokenId , "NFT does not exist");
+        require(msg.value>=videos[_tokenId].price , "Insufficient funds to purchase the NFT");
+        address owner = ownerOf(_tokenId);
+        require(owner!=msg.sender , "Cannot purchase your own minted NFT");
+        _transfer(owner , msg.sender , tokenId);
+        payable(owner).transfer(videos[_tokenId].price);
+        address seller = videos[_tokenId].owner;
+        videos[_tokenId].owner=msg.sender;
+        if(videos[_tokenId].price<msg.value){
+            payable(msg.sender).transfer(msg.value-videos[_tokenId].price);
+        }
+        emit VideoBought(_tokenId, msg.sender, seller);
     }
 }
