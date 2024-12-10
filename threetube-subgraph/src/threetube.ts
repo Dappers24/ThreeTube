@@ -3,7 +3,7 @@ import {
   VideoLiked as VideoLikedEvent,
   VideoUnLiked as VideoUnLikedEvent,
   VideoViewed as VideoViewedEvent
-} from "../generated/threetube-subrgaph/threetube-subrgaph"
+} from "../generated/threetube/threetube"
 import {
   VideoAdded,
   VideoLiked,

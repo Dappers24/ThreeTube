@@ -1,6 +1,6 @@
 {
   "sepolia": {
-    "threetube-subrgaph": {
+    "threetube": {
       "address": "0xF780bd397DA27271B6AF5B85BA31B8ee2a3529B6",
       "startBlock": 7179446
     }
