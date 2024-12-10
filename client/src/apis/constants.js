@@ -269,7 +269,7 @@ export const ABI = [
 		"type": "function"
 	}
 ]
-export const nftSubgraphUrl = ''
+export const nftSubgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube-nft-subgraph/v0.1'
 export const NFTAddress = '0x88e03fC2a42aaf9AA3f0bFB4Be8E17D9290c6ac4'
 export const NFT_ABI = [
 	{
