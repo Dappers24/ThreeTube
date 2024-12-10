@@ -5,11 +5,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: threeTube-subgraph
+    name: threetube-subrgaph
     network: sepolia
     source:
       address: "0xF780bd397DA27271B6AF5B85BA31B8ee2a3529B6"
-      abi: threeTube-subgraph
+      abi: threetube-subrgaph
       startBlock: 7179446
     mapping:
       kind: ethereum/events
@@ -21,8 +21,8 @@ dataSources:
         - VideoUnLiked
         - VideoViewed
       abis:
-        - name: threeTube-subgraph
-          file: ./abis/threeTube-subgraph.json
+        - name: threetube-subrgaph
+          file: ./abis/threetube-subrgaph.json
       eventHandlers:
         - event: VideoAdded(indexed uint256,string,string,indexed address)
           handler: handleVideoAdded
@@ -32,4 +32,4 @@ dataSources:
           handler: handleVideoUnLiked
         - event: VideoViewed(indexed uint256,uint256)
           handler: handleVideoViewed
-      file: ./src/three-tube-subgraph.ts
+      file: ./src/threetube-subrgaph.ts
