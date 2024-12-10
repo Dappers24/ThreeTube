@@ -19,6 +19,12 @@
 				"internalType": "string",
 				"name": "metadata",
 				"type": "string"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
 			}
 		],
 		"name": "VideoAdded",
