@@ -4,7 +4,7 @@
     display: flex;
     padding: 5px;
     border-radius: 10px;
-    
+    align-items: center;
 }
 .feed-title{
     font-size: 1.5rem;

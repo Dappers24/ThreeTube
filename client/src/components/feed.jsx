@@ -9,15 +9,17 @@ import { GET_DATA } from "../graphql/queries";
 import play from '../assets/play.svg'
 import left from '../assets/left.svg'
 import right from '../assets/right.svg'
+import Mint from "./mint"
 
 const Feed = ()=>{
     const context = useContext(Context);
-    const {setVideoData,videoData} = context;
+    const {setVideoData,videoData,accData} = context;
     const [videoList , setVideoList] = useState([]);
     const [loadingFeed , setLoadingFeed] = useState('');
     const [errorFeed , setErrorFeed] =useState('');
     const [page , setPage] = useState(1);
     const [toggle , setToggle] = useState(false);
+    const [mint , setMint] = useState(null);
 
     const handleVideoClick = (index)=>{
         setVideoData(videoList[index]);
@@ -54,6 +56,7 @@ const Feed = ()=>{
       },[error]);
 
       useEffect(()=>{
+        console.log(data)
         if(data && data.videoAddeds){
           let tempData = (data.videoAddeds).map(obj => {
             let metadata = JSON.parse(obj.metadata);
@@ -65,6 +68,8 @@ const Feed = ()=>{
       },[data]);
 
     return(
+        <>
+        {mint && <Mint close={setMint} metadata={mint.metadata} cid={mint.cid}/>}
         <div className="left-section glassmorphism">
             <div className='toggle-btn-wrapper'>
                 <div className='toggle-btn' onClick={()=>setToggle(false)}
@@ -81,12 +86,30 @@ const Feed = ()=>{
             {!toggle && 
                videoList.map((video,index)=>(
                 <div key={index} className="feed-card" style={{background:videoData?.cid === video?.cid?'#5fa4ff':'white',
-                  color:videoData?.cid === video?.cid?'white':'black',
+                  color:videoData?.cid === video?.cid?'white':'black'
                 }}>
                   <img src={play} alt="Play" onClick={()=>{handleVideoClick(index)}}/>
                   <div className="feed-title">{video.metadata.title}</div>
                 </div>
                ))
+            }
+
+            {
+              toggle && 
+              videoList.map((video,index)=>{
+                  return(
+                    video?.owner.toLowerCase()===accData?.address.toLowerCase() ? 
+                    (<div key={index} className="feed-card" style={{background:videoData?.cid === video?.cid?'#5fa4ff':'white',
+                      color:videoData?.cid === video?.cid?'white':'black', justifyContent:"space-between"
+                    }}>
+                      <div style={{display:'flex'}}>
+                      <img src={play} alt="Play" onClick={()=>{handleVideoClick(index)}}/>
+                      <div className="feed-title">{video.metadata.title}</div>
+                      </div>
+                      <div className="mint-box" onClick={()=>{setMint(video)}}>MINT</div>
+                    </div>):"lawda"
+                  )
+              })
             }
             </div>
             </div>
@@ -97,6 +120,7 @@ const Feed = ()=>{
             </div>
 
         </div>
+        </>
     )
 }
 export default Feed

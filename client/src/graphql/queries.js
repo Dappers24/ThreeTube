@@ -7,19 +7,18 @@ export const GET_DATA = gql`
       videoId
       cid
       metadata
+      owner
     }
     }
 `;
 
-// export const GET_NFT = gql`
-// query GetNfts(){
-//   nftAddeds(orderBy:views, orderDirection:desc) {
-//     id
-//     cid
-//     tokenId
-//     metadata
-//     views
-//     likes
-//   } 
-// }
-// `
+export const GET_NFT = gql`
+query GetNFTs($first: Int, $skip: Int){
+  approvals(first: $first,skip:$skip,orderBy:tokenId, orderDirection:desc) {
+    id
+    owner
+    approved
+    tokenId
+  } 
+}
+`

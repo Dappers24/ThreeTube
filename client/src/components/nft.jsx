@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-// import { GET_NFT } from '../graphql/queries';
+import { GET_NFT } from '../graphql/queries';
 import { useContext, useEffect, useState } from 'react';
 import cross from '../assets/cross.svg'
 import buy from '../assets/buy.svg'
@@ -13,38 +13,40 @@ const NFTs = ({close})=>{
     const {nftList , setNftList} = context;
     const [toggle , setToggle] = useState('all');// 'all' | 'my' | 'list'
 
-    //presently commented out code to be used after deploying again on subgraphs
-    // const { loading, error, data } = useQuery(GET_NFT);
-    // const [loadingFeed , setLoadingFeed] = useState('');
-    // const [errorFeed , setErrorFeed] =useState('');
-
-    useEffect(()=>{
-        const list = [
-            {metadata:{title:'Demo'} , price:'200', tokenId:1}
-        ]
-        setNftList(list) //demo for testing
-    },[])
+    // presently commented out code to be used after deploying again on subgraphs
+    const { loading, error, data } = useQuery(GET_NFT,{
+        variables: { first: 10,skip:0},
+      });
+    const [loadingFeed , setLoadingFeed] = useState('');
+    const [errorFeed , setErrorFeed] =useState('');
 
     // useEffect(()=>{
-    //     if(loading) setLoadingFeed('Loading...');
-    //     else setLoadingFeed('');
-    //   },[loading]);
+    //     const list = [
+    //         {metadata:{title:'Demo'} , price:'200', tokenId:1}
+    //     ]
+    //     setNftList(list) //demo for testing
+    // },[])
 
-    //   useEffect(()=>{
-    //     if(error) setErrorFeed('Some Error Occured');
-    //     else setErrorFeed('');
-    //   },[error]);
+    useEffect(()=>{
+        if(loading) setLoadingFeed('Loading...');
+        else setLoadingFeed('');
+      },[loading]);
 
-    //   useEffect(()=>{
-    //     if(data && data.nftAddeds){
-    //         let tempData = (data.videoAddeds).map(obj => {
-    //             let metadata = JSON.parse(obj.metadata);
-    //             let tempObj = {...obj , metadata};
-    //             return tempObj
-    //           });
-    //           setNftList(tempData);
-    //     }
-    //   },[data])
+      useEffect(()=>{
+        if(error) setErrorFeed('Some Error Occured');
+        else setErrorFeed('');
+      },[error]);
+
+      useEffect(()=>{
+        if(data && data.approvals){
+            let tempData = (data.approvals).map(obj => {
+                let metadata = JSON.parse(obj.metadata);
+                let tempObj = {...obj , metadata};
+                return tempObj
+              });
+              setNftList(tempData);
+        }
+      },[data])
 
     async function buyNft(nft) {
         const tokenId = nft.tokenId;
@@ -81,7 +83,7 @@ const NFTs = ({close})=>{
                                 if(response !== 'Y') return;
                                 buyNft(nft) 
                                }}/>
-                               {nft.price}eth
+                               {nft?.price}eth
                                </div>
                             </div>
                             </>

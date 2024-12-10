@@ -29,3 +29,14 @@
     border-radius: 10px;
     cursor: pointer;
   }
+  .mint-box{
+    color: white;
+    background: #ff0000;
+    font-size: 0.8rem;
+    display: flex;
+    height: 25px;
+    font-weight: bold;
+    padding: 1px 4px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
