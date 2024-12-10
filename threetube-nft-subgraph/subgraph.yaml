@@ -1,0 +1,47 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: threetubeNFT
+    network: sepolia
+    source:
+      address: "0x88e03fC2a42aaf9AA3f0bFB4Be8E17D9290c6ac4"
+      abi: threetubeNFT
+      startBlock: 7179426
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - BatchMetadataUpdate
+        - MetadataUpdate
+        - OwnershipTransferred
+        - Transfer
+        - VideoBought
+        - VideoMinted
+      abis:
+        - name: threetubeNFT
+          file: ./abis/threetubeNFT.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: BatchMetadataUpdate(uint256,uint256)
+          handler: handleBatchMetadataUpdate
+        - event: MetadataUpdate(uint256)
+          handler: handleMetadataUpdate
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: VideoBought(indexed uint256,indexed address,indexed address)
+          handler: handleVideoBought
+        - event: VideoMinted(indexed uint256,indexed address)
+          handler: handleVideoMinted
+      file: ./src/threetube-nft.ts

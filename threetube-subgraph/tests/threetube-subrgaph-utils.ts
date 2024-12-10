@@ -5,7 +5,7 @@ import {
   VideoLiked,
   VideoUnLiked,
   VideoViewed
-} from "../generated/threetube/threetube"
+} from "../generated/threetube-subrgaph/threetube-subrgaph"
 
 export function createVideoAddedEvent(
   videoId: BigInt,

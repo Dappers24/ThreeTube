@@ -1,5 +1,5 @@
 export const backendUrl = 'http://localhost:8000'
-export const subgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube_subgraph/v0.1'
+export const subgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube-subgraph/v0.1'
 export const contractAddress = '0xF780bd397DA27271B6AF5B85BA31B8ee2a3529B6'
 export const ABI = [
 	{
