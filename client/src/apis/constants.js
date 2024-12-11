@@ -1,5 +1,5 @@
 export const backendUrl = 'http://localhost:8000'
-export const subgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube/v0.1'
+export const subgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube/v0.1' //new to deployed
 export const contractAddress = '0xF780bd397DA27271B6AF5B85BA31B8ee2a3529B6'
 export const ABI = [
 	{
@@ -269,7 +269,7 @@ export const ABI = [
 		"type": "function"
 	}
 ]
-export const NFTAddress = '0x88e03fC2a42aaf9AA3f0bFB4Be8E17D9290c6ac4'
+export const NFTAddress = '0x2d4a6B4651B5f376CB3c5365B0CA135562c04A1a' //new to deployed
 export const NFT_ABI = [
 	{
 		"inputs": [
@@ -549,10 +549,16 @@ export const NFT_ABI = [
 				"type": "address"
 			},
 			{
-				"indexed": true,
+				"indexed": false,
 				"internalType": "address",
 				"name": "seller",
 				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "string",
+				"name": "metadata",
+				"type": "string"
 			}
 		],
 		"name": "VideoBought",
@@ -572,6 +578,18 @@ export const NFT_ABI = [
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "string",
+				"name": "metadata",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
 			}
 		],
 		"name": "VideoMinted",
@@ -902,6 +920,11 @@ export const NFT_ABI = [
 				"internalType": "uint256",
 				"name": "price",
 				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "metadata",
+				"type": "string"
 			}
 		],
 		"name": "videoMint",
@@ -910,4 +933,3 @@ export const NFT_ABI = [
 		"type": "function"
 	}
 ]
-

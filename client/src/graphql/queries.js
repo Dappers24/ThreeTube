@@ -19,6 +19,8 @@ query GetNFTs($first: Int, $skip: Int){
     owner
     approved
     tokenId
+    price
+    metadata
   } 
 }
 `

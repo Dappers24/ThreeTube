@@ -78,8 +78,8 @@ const Feed = ()=>{
                 style={toggle?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>My Videos</div>
             </div>
 
-            {loadingFeed && <div>{loading}</div>}
-            {errorFeed && <div>{error}</div>}
+            {loadingFeed && <div className="sys-msg">{loadingFeed}</div>}
+            {errorFeed && <div className="sys-msg">{errorFeed}</div>}
 
             <div style={{height:'60vh' , overflow:'scroll'}}>
             <div style={{height:'max-content',gap:'20px',display:'flex' , flexDirection:'column'}}>

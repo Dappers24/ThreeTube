@@ -14,28 +14,29 @@ contract MyToken is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
         address owner;
         uint256 price;
         string tokenURI;
+        string metadata;
     }
 
     uint256 private tokenId = 0;
     mapping (uint256 => Video) private videos;
     mapping (string => bool) private mintedVideos;
 
-    event VideoMinted(uint256 indexed tokenId, address indexed owner);
-    event VideoBought(uint256 indexed tokenId , address indexed buyer , address indexed seller);
+    event VideoMinted(uint256 indexed tokenId, address indexed owner , string indexed metadata , uint256 price);
+    event VideoBought(uint256 indexed tokenId , address indexed buyer , address seller , string indexed metadata);
 
-    function videoMint( string memory tokenUri , uint256 price) public {
-        //tokenURI mein url hai uss json file ka jo ipfs par upload kiya, uss json mein metadata aur video cid hai
-        require(mintedVideos[tokenUri] , "Video is already Minted");
+    function videoMint( string memory tokenUri , uint256 price , string memory metadata) public {
+        require(!mintedVideos[tokenUri] , "Video is already Minted");
         require(price>0 , "NFT must have some positive ETH pricing");
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, tokenUri);
         videos[tokenId] = Video({
             owner:msg.sender,
             tokenURI:tokenUri,
-            price:price
+            price:price,
+            metadata:metadata
         });
         mintedVideos[tokenUri] = true;
-        emit VideoMinted(tokenId , msg.sender);
+        emit VideoMinted(tokenId , msg.sender , metadata , price);
         tokenId++;
     }
 
@@ -70,6 +71,6 @@ contract MyToken is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
         if(videos[_tokenId].price<msg.value){
             payable(msg.sender).transfer(msg.value-videos[_tokenId].price);
         }
-        emit VideoBought(_tokenId, msg.sender, seller);
+        emit VideoBought(_tokenId, msg.sender , seller ,videos[_tokenId].metadata);
     }
 }

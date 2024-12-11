@@ -2,20 +2,34 @@ import '../styles/profile.css'
 import cross from '../assets/cross.svg'
 import { useState } from 'react'
 import { mintNFT } from '../apis/contracts';
+import { pinata } from '../apis/pinata';
+import { useContext } from "react"
+import { Context } from "../context/context.jsx"
 
 const Mint = ({close , metadata , cid})=>{
 
     const [price , setPrice] = useState('');
+    const {accData} = useContext(Context);
 
     async function handleMint(){
-        const videoData = {metadata,cid};
-        const transaction = await mintNFT({videoData:videoData,price:BigInt(price)});
-        if(!transaction) {
-            alert('Video not Minted due to some Error');
-            return;
+        try {
+            const videoData = {metadata , cid};
+            const file = new File([JSON.stringify(videoData,null,2)], `videoData-${cid}.json`, {type:"application/json"});
+            const response  = await pinata.upload.file(file);
+            console.log(response);
+            const tokenUri = `ipfs://${response.IpfsHash}`;
+            const transaction = await mintNFT({tokenUri:tokenUri,metadata:JSON.stringify(metadata),price:BigInt(price),accData});
+            if(!transaction) {
+                alert('Video not Minted due to some Error');
+                return;
+            }
+            alert('Video Minted');
+            close(null)
+        } catch (error) {
+            console.log(error);
+            alert('Video could not be minted');
+            close(null);
         }
-        alert('Video Minted');
-        close(null)
     }
 
     return(

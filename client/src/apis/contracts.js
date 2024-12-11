@@ -28,14 +28,17 @@ export const addVideo = async ({response , accData})=>{
     }
 }
 
-export const mintNFT = async ({videoData,price})=>{
+export const mintNFT = async ({tokenUri,metadata,price,accData})=>{
     const web3 = new Web3(window.ethereum);
+    console.log(accData)
     const contract = new web3.eth.Contract(NFT_ABI , contractAddress);
+    console.log(tokenUri)
     try {
-        const gasLimit = BigInt(await contract.methods.videoMint(JSON.stringify(videoData.metadata),videoData.cid,price).estimateGas({
+        const gasLimit = BigInt(await contract.methods.videoMint(tokenUri,price,metadata).estimateGas({
             from:accData.address
         }))
-        const receipt = await contract.methods.videoMint(JSON.stringify(videoData.metadata),videoData.cid,price).send({
+        console.log(gasLimit)
+        const receipt = await contract.methods.videoMint(tokenUri,price,metadata).send({
             from:accData.address,
             gas:gasLimit
         })
@@ -47,7 +50,7 @@ export const mintNFT = async ({videoData,price})=>{
     }
 }
 
-export const buyNFT = async({tokenId})=>{
+export const buyNFT = async({tokenId,accData})=>{
     const web3 = new Web3(window.ethereum);
     const contract = new web3.eth.Contract(NFT_ABI , contractAddress);
     try {

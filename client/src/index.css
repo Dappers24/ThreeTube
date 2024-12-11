@@ -46,3 +46,10 @@ body{
   padding: 20px ;
   border-radius: 20px;
 }
+.sys-msg{
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  margin: 10px;
+  font-weight: bold;
+}

@@ -10,7 +10,7 @@ import '../styles/nft.css'
 const NFTs = ({close})=>{
 
     const context = useContext(Context);
-    const {nftList , setNftList} = context;
+    const {nftList , setNftList , accData} = context;
     const [toggle , setToggle] = useState('all');// 'all' | 'my' | 'list'
 
     // presently commented out code to be used after deploying again on subgraphs
@@ -19,13 +19,6 @@ const NFTs = ({close})=>{
       });
     const [loadingFeed , setLoadingFeed] = useState('');
     const [errorFeed , setErrorFeed] =useState('');
-
-    // useEffect(()=>{
-    //     const list = [
-    //         {metadata:{title:'Demo'} , price:'200', tokenId:1}
-    //     ]
-    //     setNftList(list) //demo for testing
-    // },[])
 
     useEffect(()=>{
         if(loading) setLoadingFeed('Loading...');
@@ -50,7 +43,7 @@ const NFTs = ({close})=>{
 
     async function buyNft(nft) {
         const tokenId = nft.tokenId;
-        const transaction = await buyNFT({tokenId:tokenId});
+        const transaction = await buyNFT({tokenId:tokenId,accData});
         if(!transaction){
             alert('Purchase not Successful');
             return;
@@ -63,8 +56,8 @@ const NFTs = ({close})=>{
             <div className="glassmorphism dialog-box" style={{height:'70vh',width:'40vw'}}>
                 <img src={cross} alt="" onClick={()=>{close(false)}}
                 style={{position:'fixed', top:'10px' , right:'10px'}}/>
-                {/* {loadingFeed && <div>{loading}</div>}
-                {errorFeed && <div>{error}</div>} */}
+                {loadingFeed && <div className="sys-msg">{loadingFeed}</div>}
+                {errorFeed && <div className="sys-msg">{errorFeed}</div>}
                 <div className='toggle-btn-wrapper'>
                 <div className='toggle-btn' onClick={()=>setToggle(false)}
                 style={toggle==='all'?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>All NFT's</div>
