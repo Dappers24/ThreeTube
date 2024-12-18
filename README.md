@@ -6,7 +6,7 @@
 #### Here's a [ppt](https://www.canva.com/design/DAGVFv3zRSA/rHzQhXR-jrgJsYF4BrwNjQ/edit) about the entire project
 
 ## 💻 TechStack Used
-#### <ul><li>JavaScript</li><li>Solidity</li><li>ReactJS</li><li>TailwindCSS</li><li>NodeJS</li><li>Web3.js</li><li>MongoDB</li><li>MetaMask</li><li>IFPS</li><li>PinataSDK</li><li>FFMPEG</li><li>GraphQL</li><li>Websockets</li><li>Ganache</li></ul>
+#### <ul><li>JavaScript</li><li>Solidity</li><li>ReactJS</li><li>TailwindCSS</li><li>NodeJS</li><li>Web3.js</li><li>MongoDB</li><li>MetaMask</li><li>IPFS</li><li>PinataSDK</li><li>FFMPEG</li><li>GraphQL</li><li>Websockets</li><li>Ganache</li></ul>
 
 ## Prerequisites
 #### Node.js should be installed on your system
@@ -19,7 +19,7 @@ npm install
 ```
 #### FFMPEG should be downloaded on your local system
 #### A MetaMask Account with some sepolia in sepolia's test network.
-#### An account on IFPS and PinataSDK
+#### An account on IPFS and PinataSDK
 #### Either MongoDB should be available on your local or make a account in MongoAtlas to use it without dowloading
 #### <ul><li>[Node.js](https://nodejs.org/en/)</li><li>[MetaMask extension](https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm)</li><li>[FFMPEG(for Windows)](https://www.youtube.com/watch?v=4jx2_j5Seew)</li><li>[FFMPEG(MacOS)](https://www.youtube.com/watch?v=dJ8y-VlMNAo)</li><li>[MongoDB(local)](https://www.mongodb.com/docs/manual/installation/)</li><li>[MongoAtlas(Cloud)](https://www.youtube.com/watch?v=VkXvVOb99g0)</li><li>[IPFS](https://merrillinsurance.ipfs.com/)</li><li>[PinataSDK](https://pinata.cloud/)</li></ul>
 
