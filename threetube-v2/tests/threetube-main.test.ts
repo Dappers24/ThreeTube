@@ -6,11 +6,11 @@ import {
   beforeAll,
   afterAll
 } from "matchstick-as/assembly/index"
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, Address } from "@graphprotocol/graph-ts"
 import { VideoAdded } from "../generated/schema"
-import { VideoAdded as VideoAddedEvent } from "../generated/threetube/threetube"
-import { handleVideoAdded } from "../src/threetube"
-import { createVideoAddedEvent } from "./threetube-utils"
+import { VideoAdded as VideoAddedEvent } from "../generated/threetube-main/threetube-main"
+import { handleVideoAdded } from "../src/threetube-main"
+import { createVideoAddedEvent } from "./threetube-main-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0
@@ -20,7 +20,13 @@ describe("Describe entity assertions", () => {
     let videoId = BigInt.fromI32(234)
     let cid = "Example string value"
     let metadata = "Example string value"
-    let newVideoAddedEvent = createVideoAddedEvent(videoId, cid, metadata)
+    let owner = Address.fromString("0x0000000000000000000000000000000000000001")
+    let newVideoAddedEvent = createVideoAddedEvent(
+      videoId,
+      cid,
+      metadata,
+      owner
+    )
     handleVideoAdded(newVideoAddedEvent)
   })
 
@@ -52,6 +58,12 @@ describe("Describe entity assertions", () => {
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
       "metadata",
       "Example string value"
+    )
+    assert.fieldEquals(
+      "VideoAdded",
+      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
+      "owner",
+      "0x0000000000000000000000000000000000000001"
     )
 
     // More assert options:

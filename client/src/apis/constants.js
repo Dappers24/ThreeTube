@@ -1,6 +1,6 @@
 export const backendUrl = 'http://localhost:8000'
 export const subgraphUrl = 'https://api.studio.thegraph.com/query/92756/threetube/v0.1' //new to deployed
-export const contractAddress = '0xF780bd397DA27271B6AF5B85BA31B8ee2a3529B6'
+export const contractAddress = '0xB3AE6A6dCc70CBc2c5f3d7dCD2ed4Dca66507d25'
 export const ABI = [
 	{
 		"anonymous": false,
@@ -269,7 +269,7 @@ export const ABI = [
 		"type": "function"
 	}
 ]
-export const NFTAddress = '0x2d4a6B4651B5f376CB3c5365B0CA135562c04A1a' //new to deployed
+export const NFTAddress = '0x5c55e0D9424a9288a203e6148a1527dB7F6E49A4' 
 export const NFT_ABI = [
 	{
 		"inputs": [

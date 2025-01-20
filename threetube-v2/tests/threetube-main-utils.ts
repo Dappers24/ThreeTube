@@ -1,16 +1,17 @@
 import { newMockEvent } from "matchstick-as"
-import { ethereum, BigInt } from "@graphprotocol/graph-ts"
+import { ethereum, BigInt, Address } from "@graphprotocol/graph-ts"
 import {
   VideoAdded,
   VideoLiked,
   VideoUnLiked,
   VideoViewed
-} from "../generated/threetube/threetube"
+} from "../generated/threetube-main/threetube-main"
 
 export function createVideoAddedEvent(
   videoId: BigInt,
   cid: string,
-  metadata: string
+  metadata: string,
+  owner: Address
 ): VideoAdded {
   let videoAddedEvent = changetype<VideoAdded>(newMockEvent())
 
@@ -27,6 +28,9 @@ export function createVideoAddedEvent(
   )
   videoAddedEvent.parameters.push(
     new ethereum.EventParam("metadata", ethereum.Value.fromString(metadata))
+  )
+  videoAddedEvent.parameters.push(
+    new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
   )
 
   return videoAddedEvent

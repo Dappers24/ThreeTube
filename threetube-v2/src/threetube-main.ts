@@ -3,7 +3,7 @@ import {
   VideoLiked as VideoLikedEvent,
   VideoUnLiked as VideoUnLikedEvent,
   VideoViewed as VideoViewedEvent
-} from "../generated/threetube/threetube"
+} from "../generated/threetube-main/threetube-main"
 import {
   VideoAdded,
   VideoLiked,
@@ -18,6 +18,7 @@ export function handleVideoAdded(event: VideoAddedEvent): void {
   entity.videoId = event.params.videoId
   entity.cid = event.params.cid
   entity.metadata = event.params.metadata
+  entity.owner = event.params.owner
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

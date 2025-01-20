@@ -5,12 +5,12 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: threetube
+    name: threetube-main
     network: sepolia
     source:
-      address: "0xFFd02C8d2b705970DA5736CCAe0461e1F558f808"
-      abi: threetube
-      startBlock: 7009505
+      address: "0xB3AE6A6dCc70CBc2c5f3d7dCD2ed4Dca66507d25"
+      abi: threetube-main
+      startBlock: 7532774
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -21,10 +21,10 @@ dataSources:
         - VideoUnLiked
         - VideoViewed
       abis:
-        - name: threetube
-          file: ./abis/threetube.json
+        - name: threetube-main
+          file: ./abis/threetube-main.json
       eventHandlers:
-        - event: VideoAdded(indexed uint256,string,string)
+        - event: VideoAdded(indexed uint256,string,string,indexed address)
           handler: handleVideoAdded
         - event: VideoLiked(indexed uint256,uint256)
           handler: handleVideoLiked
@@ -32,4 +32,4 @@ dataSources:
           handler: handleVideoUnLiked
         - event: VideoViewed(indexed uint256,uint256)
           handler: handleVideoViewed
-      file: ./src/threetube.ts
+      file: ./src/threetube-main.ts

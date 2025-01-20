@@ -3,6 +3,7 @@ type VideoAdded @entity(immutable: true) {
   videoId: BigInt! # uint256
   cid: String! # string
   metadata: String! # string
+  owner: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
