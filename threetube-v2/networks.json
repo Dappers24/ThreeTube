@@ -3,6 +3,9 @@
     "threetube-main": {
       "address": "0xB3AE6A6dCc70CBc2c5f3d7dCD2ed4Dca66507d25",
       "startBlock": 7532774
+    },
+    "Contract": {
+      "address": "0x5c55e0D9424a9288a203e6148a1527dB7F6E49A4"
     }
   }
 }

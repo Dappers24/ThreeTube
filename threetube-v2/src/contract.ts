@@ -116,6 +116,7 @@ export function handleVideoBought(event: VideoBoughtEvent): void {
   entity.tokenId = event.params.tokenId
   entity.buyer = event.params.buyer
   entity.seller = event.params.seller
+  entity.metadata = event.params.metadata.toString()
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -130,6 +131,8 @@ export function handleVideoMinted(event: VideoMintedEvent): void {
   )
   entity.tokenId = event.params.tokenId
   entity.owner = event.params.owner
+  entity.metadata = event.params.metadata.toString()
+  entity.price = event.params.price
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

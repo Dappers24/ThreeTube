@@ -13,7 +13,6 @@ const NFTs = ({close})=>{
     const {nftList , setNftList , accData} = context;
     const [toggle , setToggle] = useState('all');// 'all' | 'my' | 'list'
 
-    // presently commented out code to be used after deploying again on subgraphs
     const { loading, error, data } = useQuery(GET_NFT,{
         variables: { first: 10,skip:0},
       });
@@ -31,15 +30,15 @@ const NFTs = ({close})=>{
       },[error]);
 
       useEffect(()=>{
-        if(data && data.approvals){
-            let tempData = (data.approvals).map(obj => {
+        if(data && data.videoMinteds){
+            let tempData = (data.videoMinteds).map(obj => {
                 let metadata = JSON.parse(obj.metadata);
                 let tempObj = {...obj , metadata};
                 return tempObj
               });
               setNftList(tempData);
         }
-      },[data])
+      },[data,error])
 
     async function buyNft(nft) {
         const tokenId = nft.tokenId;
@@ -59,9 +58,9 @@ const NFTs = ({close})=>{
                 {loadingFeed && <div className="sys-msg">{loadingFeed}</div>}
                 {errorFeed && <div className="sys-msg">{errorFeed}</div>}
                 <div className='toggle-btn-wrapper'>
-                <div className='toggle-btn' onClick={()=>setToggle(false)}
+                <div className='toggle-btn' onClick={()=>setToggle("all")}
                 style={toggle==='all'?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>All NFT's</div>
-                <div className='toggle-btn' onClick={()=>setToggle(true)}
+                <div className='toggle-btn' onClick={()=>setToggle("my")}
                 style={toggle==='my'?{background:'#fff',color:'black'}:{background:'transparent',color:'#fff'}}>My NFT's</div>
                 </div>
                 { toggle === 'all' &&
@@ -86,6 +85,7 @@ const NFTs = ({close})=>{
                 {
                     toggle === 'my' && 
                     nftList.map((nft)=>{
+                        
                         return(
                             <>
                             <div className='nft-list-box'>

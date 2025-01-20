@@ -101,9 +101,8 @@ export function createOwnershipTransferredEvent(
   previousOwner: Address,
   newOwner: Address
 ): OwnershipTransferred {
-  let ownershipTransferredEvent = changetype<OwnershipTransferred>(
-    newMockEvent()
-  )
+  let ownershipTransferredEvent =
+    changetype<OwnershipTransferred>(newMockEvent())
 
   ownershipTransferredEvent.parameters = new Array()
 
@@ -148,7 +147,8 @@ export function createTransferEvent(
 export function createVideoBoughtEvent(
   tokenId: BigInt,
   buyer: Address,
-  seller: Address
+  seller: Address,
+  metadata: string
 ): VideoBought {
   let videoBoughtEvent = changetype<VideoBought>(newMockEvent())
 
@@ -166,13 +166,18 @@ export function createVideoBoughtEvent(
   videoBoughtEvent.parameters.push(
     new ethereum.EventParam("seller", ethereum.Value.fromAddress(seller))
   )
+  videoBoughtEvent.parameters.push(
+    new ethereum.EventParam("metadata", ethereum.Value.fromString(metadata))
+  )
 
   return videoBoughtEvent
 }
 
 export function createVideoMintedEvent(
   tokenId: BigInt,
-  owner: Address
+  owner: Address,
+  metadata: string,
+  price: BigInt
 ): VideoMinted {
   let videoMintedEvent = changetype<VideoMinted>(newMockEvent())
 
@@ -186,6 +191,12 @@ export function createVideoMintedEvent(
   )
   videoMintedEvent.parameters.push(
     new ethereum.EventParam("owner", ethereum.Value.fromAddress(owner))
+  )
+  videoMintedEvent.parameters.push(
+    new ethereum.EventParam("metadata", ethereum.Value.fromString(metadata))
+  )
+  videoMintedEvent.parameters.push(
+    new ethereum.EventParam("price", ethereum.Value.fromUnsignedBigInt(price))
   )
 
   return videoMintedEvent

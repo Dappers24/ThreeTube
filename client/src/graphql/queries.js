@@ -14,13 +14,12 @@ export const GET_DATA = gql`
 
 export const GET_NFT = gql`
 query GetNFTs($first: Int, $skip: Int){
-  approvals(first: $first,skip:$skip,orderBy:tokenId, orderDirection:desc) {
+  videoMinteds(first: $first,skip:$skip,orderBy:tokenId, orderDirection:desc) {
     id
-    owner
-    approved
     tokenId
-    price
     metadata
+    price
+    owner
   } 
 }
 `
