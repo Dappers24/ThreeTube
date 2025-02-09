@@ -116,7 +116,7 @@ app.get('/ping',(req,res)=>{
     res.send('pong')
 })
 
-server.listen(8000 , async ()=>{
+server.listen(keys.PORT ||8000 , async ()=>{
     await connectToDb();
     console.log("Running on port 8000");
 })
