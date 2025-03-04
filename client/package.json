@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@livepeer/react": "^4.2.9",
     "@pinata/sdk": "^2.1.0",
     "axios": "^1.7.7",
     "graphql": "^16.9.0",
     "hls.js": "^1.5.17",
+    "livepeer": "^3.5.0",
     "pinata-web3": "^0.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

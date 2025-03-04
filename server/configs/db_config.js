@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import data from "./server_config.js";
+import keys from "./server_config.js";
 async function connectToDb() {
   try {
-    if (data.NODE_ENV == "development") {
-      await mongoose.connect(data.DB);
+    if (keys.NODE_ENV == "development") {
+      await mongoose.connect(keys.DB);
       console.log("Mongo running");
     } else {
       console.log("we are not ready with the other url");

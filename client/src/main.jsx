@@ -6,9 +6,11 @@ import { ContextProvider } from './context/context.jsx'
 import { SockerContextProvider } from './context/socket.jsx'
 import { ApolloProvider } from '@apollo/client';
 import apolloClient from './apis/apollo.js'
+import * as Broadcast from "@livepeer/react/broadcast";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Broadcast.Root>
     <ApolloProvider client={apolloClient}>
     <ContextProvider>
     <SockerContextProvider>
@@ -16,5 +18,6 @@ createRoot(document.getElementById('root')).render(
     </SockerContextProvider>
     </ContextProvider>
     </ApolloProvider>
+    </Broadcast.Root>
   </StrictMode>,
 )
