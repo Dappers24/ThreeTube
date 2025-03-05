@@ -16,10 +16,6 @@ function App() {
   const [stream, setStream] = useState(false);
   const [watch , setWatch] = useState(false);
 
-  useEffect(() => {
-    console.log(stream)
-  },[stream])
-
   const detectCurrentProvider = () => {
     let provider;
     if (window.ethereum) {
@@ -65,7 +61,6 @@ function App() {
       <div style={{position:'fixed', zIndex:"100"}}>
         <button style={{color:"white",backgroundColor:'black',position:"fixed", bottom:"20px", right:"20px"}} 
         onClick={()=>{
-          console.log("clicked")
           setStream((prevstream)=>setStream(!prevstream))}}>
             {stream?"End the stream":"Start a Stream"}</button>
         {
@@ -79,7 +74,8 @@ function App() {
 
       <div style={{position:'fixed', zIndex:"200"}}>
         <button style={{color:"white",backgroundColor:'black',position:"fixed", bottom:"20px", left:"20px"}} 
-        onClick={()=>{setWatch(prevWatch=>setWatch(!prevWatch))}}>{watch?"Not Watch the stream":"Watch a Stream"}</button>
+        onClick={()=>{setWatch(prevWatch=>setWatch(!prevWatch))}}>
+          {watch?"Not Watch the stream":"Watch a Stream"}</button>
         {
           watch && 
           <div style={{width:'60vw' , display:'flex' , justifyContent:'center', alignItems:'center'}}>

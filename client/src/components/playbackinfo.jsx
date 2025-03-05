@@ -22,8 +22,8 @@ useEffect(()=>{
 
 const getPlaybackSource = async() => {
   const playbackInfo = await livepeer.playback.get('cc3f6huz7ykd5jdy');
-
   const srcGet = getSrc(playbackInfo.playbackInfo);
+  console.log(srcGet)
   setsrc(srcGet);
 };
 
