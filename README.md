@@ -4,9 +4,10 @@
 
 ## Complete Idea with a Revenue Model
 #### Here's a [ppt](https://www.canva.com/design/DAGVFv3zRSA/rHzQhXR-jrgJsYF4BrwNjQ/edit) about the entire project
+#### Currently implemented features include video upload, decentralized storage, wallet-based access, indexing via The Graph, and **Livepeer-powered** live streaming.
 
 ## 💻 TechStack Used
-#### <ul><li>JavaScript</li><li>Solidity</li><li>ReactJS</li><li>TailwindCSS</li><li>NodeJS</li><li>Web3.js</li><li>MongoDB</li><li>MetaMask</li><li>IPFS</li><li>PinataSDK</li><li>FFMPEG</li><li>GraphQL</li><li>Websockets</li><li>Ganache</li></ul>
+#### <ul><li>JavaScript</li><li>Solidity</li><li>ReactJS</li><li>TailwindCSS</li><li>NodeJS</li><li>Web3.js</li><li>MongoDB</li><li>MetaMask</li><li>IPFS</li><li>PinataSDK</li><li>FFMPEG</li><li>GraphQL</li><li>Websockets</li><li>Ganache</li><li>Livepeer</li></ul>
 
 ## Prerequisites
 #### Node.js should be installed on your system
