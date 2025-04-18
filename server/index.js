@@ -37,15 +37,15 @@ app.use(bodyParser.text());
 app.post('/upload', upload.single('video') , async (req, res)=>{
     try{
         const {title , description , tags} = req.body;
-        console.log("Error")
+        // console.log("Error")
         //ffmpeg segments the video in the segmentVideo() function;
         const inputPath = `./uploads/${req.fileName}`;
-        console.log("Error1")
+        // console.log("Error1")
         const outputFolder = `./videos/${(req.fileName).split('.')[0]}`;
         if(!fs.existsSync(outputFolder)){
             fs.mkdirSync(outputFolder , {recursive:true});
         }
-        console.log("Error2")
+        // console.log("Error2")
         const segmentation = await segmentVideo(inputPath , outputFolder);
         fs.unlinkSync(inputPath);
         if(!segmentation)return res.status(500).json({error:true,message:'File upload failed'});
