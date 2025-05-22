@@ -63,6 +63,7 @@ npm install
 
 # ⭐ Feature Suggestion
 #### Feel free to [open an issue](https://github.com/Dappers24/ThreeTubes) on GitHub if you have feature idea to be added 🙌.
+---
 
 # 🧩 Team
 #### <ul><li>[Muskan](https://github.com/musk1n)</li><li>[Srinjoy](https://github.com/sgcodes7471)</li><li>[Kritika](https://github.com/shreespace)</li><li>[Tannya](https://github.com/tan1729)</li></ul>
