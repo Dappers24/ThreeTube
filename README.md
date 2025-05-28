@@ -3,7 +3,7 @@
 #### ThreeTube is a decentralized streaming platform that redefines media content ownership, empowering both creators and viewers. Built on blockchain technology, it prioritizes content security, user control, and fair monetization, while fostering a unique, engaging experience centered around community participation and rewards.
 
 ## Complete Idea with a Revenue Model
-#### Here's a [ppt](https://www.canva.com/design/DAGVFv3zRSA/rHzQhXR-jrgJsYF4BrwNjQ/edit) about the entire project
+#### Here's a [ppt](https://www.canva.com/design/DAGlHoKrx0M/hQ6ep4TMvEafsZP6VY885w/edit) about the entire project
 #### Currently implemented features include video upload, decentralized storage, wallet-based access, indexing via The Graph, and **Livepeer-powered** live streaming.
 
 ## 💻 TechStack Used
